@@ -32,6 +32,7 @@ ShadowViewport.prototype.init = function(viewport, options) {
 
   // Process CTM
   this.processCTM()
+  this.updateCTM()
 }
 
 /**
