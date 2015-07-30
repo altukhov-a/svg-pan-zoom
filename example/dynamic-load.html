@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script src="svg-pan-zoom.js"></script>
+    <script src="jquery.js"></script>
+  </head>
+
+  <body>
+    <h1>Demo for svg-pan-zoom: Dinamic SVG load</h1>
+    <div id="container"><embed src="dynamic-load_files/tiger.svg" type="image/svg+xml" style="width: 500px; height: 500px; border:1px solid black;"></div>
+
+    <script>
+      // Don't use window.onLoad like this in production, because it can only listen to one function.
+      $(function() {
+        var lastEventListener = null;
+
+        function createNewEmbed(src){
+          var embed = document.createElement('embed');
+          embed.setAttribute('style', 'width: 500px; height: 500px; border:1px solid black;');
+          embed.setAttribute('type', 'image/svg+xml');
+          embed.setAttribute('src', src);
+
+          document.getElementById('container').appendChild(embed)
+
+          lastEventListener = function(){
+            svgPanZoom(embed, {
+              zoomEnabled: true,
+              controlIconsEnabled: true
+            });
+          }
+          embed.addEventListener('load', lastEventListener)
+
+          return embed
+        }
+
+        var lastEmbedSrc = 'tiger.svg'
+          , lastEmbed = createNewEmbed(lastEmbedSrc)
+          ;
+	});
+    </script>
+</body></html>
